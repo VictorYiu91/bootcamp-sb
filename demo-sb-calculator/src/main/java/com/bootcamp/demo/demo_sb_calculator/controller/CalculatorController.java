@@ -2,19 +2,18 @@ package com.bootcamp.demo.demo_sb_calculator.controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import com.bootcamp.demo.demo_sb_calculator.util.Calculators;
 import com.bootcamp.demo.demo_sb_calculator.util.Convertor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
 // ! broswer -> web request ->
-@Controller
-@ResponseBody
+// @Controller // ! web layer listener (server)
+// @ResponseBody // Return .JSON
+@RestController // ! @RestController = @Controller + @ ResponseBody
 public class CalculatorController {
   @GetMapping("/sum/{x}/{y}")
   public Integer sum(@PathVariable Integer x, @PathVariable Integer y) {
@@ -62,8 +61,8 @@ public class CalculatorController {
 
   // Example: Combine sum/substract/multiply/divide into one API
   // User input: sum/substract/multiply/divide, x, y
-  @GetMapping("/stringcalculator/{operaiotn}/{x}/{y}")
-  public Double stringCalculator(@PathVariable String operation,
+  @GetMapping("/calculator/{operation}/{x}/{y}")
+  public Double calculate(@PathVariable String operation,
       @PathVariable String x, @PathVariable String y) {
     if (operation == null)
       return -999.0;
