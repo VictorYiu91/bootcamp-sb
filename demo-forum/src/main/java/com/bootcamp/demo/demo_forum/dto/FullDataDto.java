@@ -3,6 +3,7 @@ package com.bootcamp.demo.demo_forum.dto;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Builder
@@ -53,6 +54,7 @@ public class FullDataDto {
     @Getter
     @Builder
     public static class CommentDto {
+      @Setter
       private Long id;
       private String name;
       private String email;
