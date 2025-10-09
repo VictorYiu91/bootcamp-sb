@@ -10,12 +10,13 @@ import lombok.Setter;
 public class FullDataDto {
   private Long id;
   private String name;
-  private String userName;
+  private String username;
   private String email;
-  private AddressDto address;
   private String phone;
   private String website;
+  private AddressDto address;
   private CompanyDto company;
+  @Setter
   private List<PostDto> posts;
 
   @Getter
@@ -37,7 +38,7 @@ public class FullDataDto {
 
   @Getter
   @Builder
-  public static class CompanyDto{
+  public static class CompanyDto {
     private String name;
     private String catchPhrase;
     private String bs;
@@ -47,14 +48,14 @@ public class FullDataDto {
   @Builder
   public static class PostDto {
     private Long id;
-    private String tittle;
+    private String title;
     private String body;
+    @Setter
     private List<CommentDto> comments;
 
     @Getter
     @Builder
     public static class CommentDto {
-      @Setter
       private Long id;
       private String name;
       private String email;

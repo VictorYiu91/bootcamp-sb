@@ -4,10 +4,9 @@ public enum SysCode {
   OK(0, "OK."), //
   FAIL(99999, "Fail."), //
   ID_NOT_FOUND(99998, "ID Not Found."), //
-  ENUM_NOT_FOUND(99997, "enum not found by code."),
-  SUCCESS(000000, "Success."),
-  JSON_NOTAVAIL(999998, "Json Placeholder API unavailable."),
-  DB_CONNECTION_FAIL(999997, "Database Connection Fail.")
+  ENUM_NOT_FOUND(99997, "enum not found by code."), //
+  SERVICE_NOT_FOUND(99996, "Service Endpoint Not Found."), //
+  SQL_INVALID(99995, "SQL Invalid."), //
   ;
 
   private Integer code;

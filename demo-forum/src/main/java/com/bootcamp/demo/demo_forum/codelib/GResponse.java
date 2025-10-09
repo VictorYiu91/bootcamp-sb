@@ -1,12 +1,11 @@
 package com.bootcamp.demo.demo_forum.codelib;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.bootcamp.demo.demo_forum.exception.ErrorMessage;
 
 public class GResponse<T> {
   private Integer code;
   private String message;
-  private List<T> data;
+  private T data;
 
   public Integer getCode() {
     return this.code;
@@ -16,7 +15,7 @@ public class GResponse<T> {
     return this.message;
   }
 
-  public List<T> getData() {
+  public T getData() {
     return this.data;
   }
 
@@ -33,12 +32,11 @@ public class GResponse<T> {
   public static class Builder<T> {
     private Integer code;
     private String message;
-    private List<T> data;
+    private T data;
 
     public Builder() {
       this.code = 0;
-      this.message = "";
-      this.data = new ArrayList<>();
+      this.message = "OK.";
     }
 
     public Builder<T> ok() {
@@ -71,7 +69,7 @@ public class GResponse<T> {
     //   return this;
     // }
 
-    public Builder<T> data(List<T> data) {
+    public Builder<T> data(T data) {
       this.data = data;
       return this;
     }
@@ -79,5 +77,15 @@ public class GResponse<T> {
     public GResponse<T> build() {
       return new GResponse<>(this);
     }
+  }
+
+  public static void main(String[] args) {
+    GResponse<ErrorMessage> response = GResponse.<ErrorMessage>builder() //
+        .fail()
+        .data(new ErrorMessage(999, "ABCDE")).build();
+
+    System.out.println(response.getCode());
+    System.out.println(response.getMessage());
+    System.out.println(response.getData());
   }
 }

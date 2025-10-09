@@ -9,10 +9,10 @@ import com.bootcamp.demo.demo_forum.entity.CommentEntity;
 import com.bootcamp.demo.demo_forum.entity.PostEntity;
 
 @Repository
-public interface CommentRepository extends JpaRepository<CommentEntity, Long>{
-  // ! @Query -> nativeQuery = true, SQL (MySQL)
-  
-  // ! @Query -> nativeQuery = false, Hibernate generates SQL compatable to target DB product
+public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
+  // ! @Query -> nativeQuery = true, hardcoded SQL (MySQL)
+
+  // ! @Query -> nativeQuery = false, Hibernate generates SQL compatabile to target DB product
   // JPQL
   @Query(value = "select c from CommentEntity c where c.postEntity = :postEntity")
   List<CommentEntity> findByPost(@Param(value = "postEntity") PostEntity postEntity);

@@ -10,33 +10,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "users")
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id // ! Primary Key
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // ! auto_increment
   private Long id;
+  private Long origUserId; // ! Original user id
   private String name;
   private String username;
   private String email;
-  @Column(name = "address_street")
   private String street;
-  @Column(name = "address_suite")
   private String suite;
-  @Column(name = "address_city")
   private String city;
-  @Column(name = "address_zipcode")
   private String zipcode;
-  @Column(name = "address_geo_lat")
   private String latitude;
-  @Column(name = "address_geo_lng")
   private String longitude;
   private String phone;
   private String website;

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.bootcamp.demo.demo_forum.entity.PostEntity;
 
 @Repository
-public interface PostRepository extends JpaRepository<PostEntity, Long>{
+public interface PostRepository extends JpaRepository<PostEntity, Long> {
   
 }

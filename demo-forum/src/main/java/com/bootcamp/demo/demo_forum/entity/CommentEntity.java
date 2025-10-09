@@ -12,22 +12,25 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "comments")
 @Getter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class CommentEntity {
   @Id
-  @GeneratedValue (strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
   private String email;
-  @Column (length = 3000)
+  @Column(length = 1000)
   private String body;
+
   @ManyToOne
-  @JoinColumn (name = "post_id")
+  @JoinColumn(name = "post_id")
+  @Setter
   private PostEntity postEntity;
 }
