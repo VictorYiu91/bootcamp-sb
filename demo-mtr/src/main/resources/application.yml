@@ -1,0 +1,15 @@
+mtr-service:
+  host: 'rt.data.gov.hk'
+  version: 'v1'
+  endpoints:
+    schedule: '/transport/mtr/getSchedule.php'
+
+spring:
+  datasource:
+    driverClassName: "org.postgresql.Driver"
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    username: "postgres"
+    password: "admin1234"
+  jpa:
+    show-sql: false
+    hibernate.ddl-auto: update
