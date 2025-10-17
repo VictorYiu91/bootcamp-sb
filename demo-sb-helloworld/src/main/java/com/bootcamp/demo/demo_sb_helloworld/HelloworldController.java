@@ -3,11 +3,13 @@ package com.bootcamp.demo.demo_sb_helloworld;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-@ResponseBody 
+@ResponseBody
+@RequestMapping(value = "/hello")
 public class HelloworldController {
   @GetMapping(value = "/helloworld")
   public String greeting() {

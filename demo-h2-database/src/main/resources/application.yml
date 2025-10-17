@@ -1,0 +1,12 @@
+# Data Source Settings
+spring:
+  datasource:
+    url: jdbc:h2:mem:jpademo
+  sql:
+    init:
+      platform: h2
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: create-drop
+# H2 Database Settings
+spring.h2.console.enabled: true

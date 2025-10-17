@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Crypto Stock: Bitcoin , Ethereum, Tether</title>
+  </head>
+  <body>
+    <h1>Crypto Stock</h1>
+    <div class="form-group">
+      <label for="conFilter">Filter by ID:</label>
+      <input type="text" class="form-control" id="coinFilter" placeholder="Enter Coin ID">
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Image</th>
+          <th>current Price (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="coin : ${cryptoStock}" class="coinRow">
+          <td th:text="${coin.name}"></td>
+          <td><img th:src="${coin.image}" alt="Coin Image" height="50"></td>
+          <td th:text="${coin.currentPrice}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var coinFilter = document.getElementById('coinFilter');
+        var coinRows = document.querySelectorAll('.coinRow');
+
+        coinFilter.addEventListener('input', function() {
+          var filter = coinFilter.value.toUpperCase();
+
+          coinRows.forEach(function (row) {
+            var coinId = row.querySelector('td:nth-child(1)').textContent.toUpperCase();
+
+            if (coinId.indexOf(filter) > -1) {
+              row.style.display = '';
+            } else {
+              row.style.display = 'none';
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

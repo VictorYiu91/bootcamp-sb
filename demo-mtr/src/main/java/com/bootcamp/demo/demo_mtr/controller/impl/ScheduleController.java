@@ -20,7 +20,7 @@ public class ScheduleController implements ScheduleOperation {
   }
 
   @Override
-  public List<LineEntity> getAllLines() throws JsonProcessingException{
+  public List<LineEntity> getAllLines() throws JsonProcessingException {
     return this.scheduleService.getAllLines();
   }
 }
