@@ -1,49 +1,128 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>Crypto Stock: Bitcoin , Ethereum, Tether</title>
-  </head>
-  <body>
-    <h1>Crypto Stock</h1>
-    <div class="form-group">
-      <label for="conFilter">Filter by ID:</label>
-      <input type="text" class="form-control" id="coinFilter" placeholder="Enter Coin ID">
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Image</th>
-          <th>current Price (USD)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="coin : ${cryptoStock}" class="coinRow">
-          <td th:text="${coin.name}"></td>
-          <td><img th:src="${coin.image}" alt="Coin Image" height="50"></td>
-          <td th:text="${coin.currentPrice}"></td>
-        </tr>
-      </tbody>
-    </table>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var coinFilter = document.getElementById('coinFilter');
-        var coinRows = document.querySelectorAll('.coinRow');
 
-        coinFilter.addEventListener('input', function() {
-          var filter = coinFilter.value.toUpperCase();
+<head>
+  <meta charset="UTF-8" />
+  <title>Crypto Stock: Bitcoin , Ethereum, Tether</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fafafa;
+      color: #077279;
+      margin: 0;
+      padding: 0;
+    }
 
-          coinRows.forEach(function (row) {
-            var coinId = row.querySelector('td:nth-child(1)').textContent.toUpperCase();
+    h1 {
+      background-color: #fafafa;
+      color: rgb(16, 16, 16);
+      text-align: center;
+      padding: 20px;
+    }
 
-            if (coinId.indexOf(filter) > -1) {
-              row.style.display = '';
-            } else {
-              row.style.display = 'none';
-            }
-          });
+    table {
+      width: 80%;
+      margin: 40px auto;
+      border-collapse: collapse;
+      box-shadow: 0px 0px 10px rgb(244, 243, 243);
+      background-color: white;
+    }
+
+    th,
+    td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #8761e8d7;
+      color: #f8f9fa;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .price-up {
+      color: green;
+    }
+
+    .price-down {
+      color: red;
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Crypto Stock</h1>
+  <div style="width: 80%; margin: 20px auto 0 auto;">
+    <input type="text" id="coinFilter" placeholder="Coin ID ..." style="width: 200px; padding: 8px; font-size: 14px;" />
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th align="left">Coin</th>
+        <th align="left">Current Price</th>
+        <th align="left">Price Change (24h)</th>
+        <th align="left">Market Capitalization</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tbody>
+      <!-- Thymeleaf Loop -->
+      <tr th:each="coin : ${coinList}" class="coinRow">
+        <!-- 合併 Logo + Name + Symbol -->
+        <td>
+          <img th:src="${coin.image}" th:alt="${coin.name}" />
+          <span th:text="${coin.name}" style="font-weight:bold; color:black;"></span>
+          <span th:text="${coin.symbol.toUpperCase()}" style="font-weight:bold; color:#497385;"></span>
+
+          <!-- Last Updated 放下面，用小字 -->
+          <div style="font-size: 0.8em; color: gray;"
+            th:text="${#temporals.format(coin.lastUpdated, 'yyyy-MM-dd HH:mm:ss')} + ' HKT'">
+          </div>
+        </td>
+
+        <!-- Current Price，加 $ + 千分位 -->
+        <td th:text="'$' + ${#numbers.formatDecimal(coin.currentPrice, 0, 'COMMA', 3, 'POINT')}" th:prepend="'$'"></td>
+
+        <!-- 24h Price Change -->
+        <td
+          th:text="${coin.priceChangePercentage24h >= 0 ? '▲ ' + #numbers.formatDecimal(coin.priceChangePercentage24h, 1, 2) : '▼ ' + #numbers.formatDecimal(coin.priceChangePercentage24h, 1, 2)} + '%'"
+          th:classappend="${coin.priceChangePercentage24h >= 0} ? 'price-up' : 'price-down'">
+        </td>
+        <!-- Market Cap -->
+        <td th:text="'$' + ${#numbers.formatDecimal(coin.marketCap, 0, 'COMMA', 0, 'POINT')}" th:prepend="'$'"></td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var coinFilter = document.getElementById('coinFilter');
+      var coinRows = document.querySelectorAll('.coinRow');
+
+      coinFilter.addEventListener('input', function () {
+        var filter = coinFilter.value.toUpperCase();
+
+        coinRows.forEach(function (row) {
+          var coinText = row.querySelector("td").textContent.toUpperCase();
+          row.style.display = coinText.indexOf(filter) > -1 ? "" : "none";
         });
-      });
-    </script>
-  </body>
+    });
+    });
+  </script>
+</body>
+
 </html>

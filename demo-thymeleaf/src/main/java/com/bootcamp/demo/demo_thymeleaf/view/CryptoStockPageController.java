@@ -15,8 +15,8 @@ public class CryptoStockPageController {
 
   @GetMapping(value = "/cryptostock")
   public String getCyrptoStockPage(Model model) {
-    List<CryptoDTO> cryptoStock = this.cryptoStockService.getStockInfo();
-    model.addAttribute("cryptoStock", cryptoStock);
+    List<CryptoDTO> coinList = this.cryptoStockService.getStockInfo();
+    model.addAttribute("coinList", coinList);
     return "cryptostock";
   }
 }

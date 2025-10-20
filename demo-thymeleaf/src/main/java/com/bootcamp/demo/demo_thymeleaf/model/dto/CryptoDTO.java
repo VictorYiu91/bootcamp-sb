@@ -1,5 +1,6 @@
 package com.bootcamp.demo.demo_thymeleaf.model.dto;
 
+import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
@@ -49,7 +50,7 @@ public class CryptoDTO {
   private String atlDate;
   private Roi roi;
   @JsonProperty(value = "last_updated")
-  private String lastUpdated;
+  private LocalDateTime lastUpdated;
 
   @Getter
   public static class Roi {
