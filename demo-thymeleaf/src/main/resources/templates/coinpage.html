@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Coingecko Coin Data</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/js/coinpage.js"></script>
+</head>
+
+<body>
+  <h1>Coingecko Coin Data</h1>
+  <div class="table-container">
+    <div class="search-box">
+      <input type="text" class="form-control" id="coinFilter" placeholder="Coin ID ...">
+    </div>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Coin</th>
+          <th>Current Price</th>
+          <th>Price Change (24h)</th>
+          <th>Market Capitalization</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="coin : ${coins}" class="coinRow">
+          <td>
+            <div class="coin-info">
+              <div class="coin-details">
+                <img class="coin-img" th:src="${coin.image}" alt="Coin Image">
+                <span th:text="${coin.name}" class="coin-name"></span>
+                <span th:text="${coin.symbol}" class="coin-symbol"></span>
+              </div>
+              <div class="last-updated"
+                th:text="${#temporals.format(coin.lastUpdated, 'yyyy-MM-dd HH:mm:ss')} + ' HKT'">
+              </div>
+            </div>
+          </td>
+          <td class="price-number" th:text="'$' + ${#numbers.formatDecimal(coin.currentPrice, 1, 'COMMA', 3, 'POINT')}">
+          </td>
+          <td>
+            <span th:with="roundedPercent = ${T(java.lang.Math).round(coin.priceChangePercent24h * 100) / 100.0}"
+              th:class="${'price-change ' + (roundedPercent > 0 ? 'up' : (roundedPercent < 0 ? 'down' : 'neutral'))}">
+              <span th:text="${roundedPercent > 0 ? '▲' : (roundedPercent < 0 ? '▼' : '')}"></span>
+              <span
+                th:text="${#numbers.formatDecimal(T(java.lang.Math).abs(roundedPercent), 1, 'COMMA', 2, 'POINT')} + '%'"></span>
+            </span>
+          </td>
+          <td class="price-number" th:text="'$' + ${#numbers.formatDecimal(coin.marketCap, 1, 'COMMA', 0, 'POINT')}">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
